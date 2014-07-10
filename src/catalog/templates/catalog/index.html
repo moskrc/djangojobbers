@@ -2,4 +2,10 @@
 
 {% block content %}
 <h1>Вакансии Django</h1>
+
+    <ul>
+    {% for i in items %}
+        <li>{{ i }}</li>
+    {% endfor %}
+    </ul>
 {% endblock %}

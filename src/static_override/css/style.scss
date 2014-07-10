@@ -3,3 +3,13 @@ $primary-color: #999;
 
 body {
 }
+
+.asteriskField {
+  color: #008000;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+#id_email, #id_salary, #id_city, #id_employer_website {
+  max-width: 50%;
+}

@@ -7,7 +7,7 @@ import os
 from random import choice
 from fabric.operations import run, get, local
 
-env.hosts = ['djangojobers.ru',]
+env.hosts = ['djangojobbers.ru',]
 env.user = "moskrc"
 env.sitename = 'djangojobbers.ru'
 
