@@ -1,15 +1,29 @@
 {% extends "base.html" %}
 
+{% block js %}{{ block.super }}
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var dep_el = $('#id_city').parent();
+            dep_el.hide();
+            $('#id_on_site').change(function () {
+                if (this.checked) {
+                    dep_el.slideDown()
+                } else {
+                    dep_el.slideUp()
+                }
+            }).change();
+        });
+    </script>
+{% endblock %}
+
 {% block content %}
-    <h1 style="text-align: right">Добавление новой вакансии</h1>
+    <h1>Добавление новой вакансии</h1>
 
     <form action="." method="POST" class="form" role="form">{% csrf_token %}
         {% include 'common/elements/form_hidden_fields.html' %}
         {% include 'common/elements/form_errors.html' %}
 
-        <hr/>
-        <h2>О работе</h2>
-        <hr/>
+        <br/>
 
         {% include 'common/elements/form_field.html' with item=form.title %}
         {% include 'common/elements/form_field.html' with item=form.description %}
@@ -18,7 +32,7 @@
         {% include 'common/elements/form_field.html' with item=form.on_site %}
         {% include 'common/elements/form_field.html' with item=form.city %}
 
-        <hr/>
+        <br/>
         <h2>О компании</h2>
         <hr/>
 
