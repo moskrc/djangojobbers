@@ -1,14 +1,51 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <h2>{{ item.title }}</h2>
 
-    <p>{{ item.description }}</p>
-    <p>{{ item.salary }}</p>
-    {{ item.on_site }}
-    {{ item.city }}
-    {{ item.employer_name }}
-    {{ item.employer_description }}
-    {{ item.employer_website }}
+    <div class="col-lg-9">
+        <h2>{{ item.title }}</h2>
+        {{ item.created|date:"d.m.Y h:m:i" }}
+
+        <hr/>
+        <h3>Описание</h3>
+        <p>{{ item.description }}</p>
+        <p>{{ item.salary }}</p>
+        {{ item.on_site }}
+
+        <hr/>
+        <h4>О Компании</h4>
+        {{ item.employer_description }}
+        {{ item.employer_website }}
+    </div>
+
+    <div class="col-lg-3">
+
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title">Информация</h3>
+          </div>
+          <div class="panel-body">
+              <dl>
+                  {% if item.employer_name %}
+                  <dt>Компания</dt>
+                  <dd>{{ item.employer_name }}</dd>
+                  {% endif %}
+
+                  {% if item.employer_website %}
+                  <dt>Сайт</dt>
+                  <dd>{{ item.employer_website }}</dd>
+                  {% endif %}
+
+                  <dt>Оплата</dt>
+                  <dd>{{ item.salary }}</dd>
+              </dl>
+
+            Город: {{ item.city }}
+        {{ item.employer_name }}
+
+          </div>
+        </div>
+
+    </div>
 
 {% endblock %}

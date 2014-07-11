@@ -21,7 +21,7 @@ class Item(TimeStampedModel):
     city = models.CharField(u'Город', max_length=255, blank=True, null=True, help_text=u'В каком городе находится офис')
     employer_name = models.CharField(u'Название', max_length=255, blank=True, null=True, help_text=u'Название вашей компании или стартапа')
     employer_description = models.TextField(u'Описание', blank=True, null=True, help_text=u'Ваше краткое описание')
-    employer_website = models.URLField(u'Сайт', blank=True, null=True, help_text=u'No SPAM')
+    employer_website = models.URLField(u'Сайт', blank=True, null=True)
     secret_key = models.CharField(max_length=255, blank=True)
 
 
