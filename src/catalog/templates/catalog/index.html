@@ -1,11 +1,11 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h1>Вакансии Django</h1>
+<h2>Вакансии Django</h2>
 
     <ul>
     {% for i in items %}
-        <li>{{ i }}</li>
+        <li><a href="{% url 'catalog_view' i.id %}">{{ i }}</a></li>
     {% endfor %}
     </ul>
 {% endblock %}

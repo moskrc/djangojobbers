@@ -1,6 +1,14 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <h1>{{ item.title }}</h1>
+    <h2>{{ item.title }}</h2>
+
+    <p>{{ item.description }}</p>
+    <p>{{ item.salary }}</p>
+    {{ item.on_site }}
+    {{ item.city }}
+    {{ item.employer_name }}
+    {{ item.employer_description }}
+    {{ item.employer_website }}
 
 {% endblock %}

@@ -17,7 +17,7 @@
 {% endblock %}
 
 {% block content %}
-    <h1>Добавление новой вакансии</h1>
+    <h2>Добавление новой вакансии</h2>
 
     <form action="." method="POST" class="form" role="form">{% csrf_token %}
         {% include 'common/elements/form_hidden_fields.html' %}
@@ -33,7 +33,7 @@
         {% include 'common/elements/form_field.html' with item=form.city %}
 
         <br/>
-        <h2>О компании</h2>
+        <h3>О компании</h3>
         <hr/>
 
         {% include 'common/elements/form_field.html' with item=form.employer_name %}
