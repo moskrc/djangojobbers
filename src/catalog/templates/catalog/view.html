@@ -1,21 +1,25 @@
 {% extends "base.html" %}
 
 {% block content %}
-
+<div class="row">
     <div class="col-lg-9">
         <h2>{{ item.title }}</h2>
-        {{ item.created|date:"d.m.Y h:m:i" }}
+        Добавлено: {{ item.created|date:"d.m.Y h:m:i" }} |
+        {% if item.on_site %}
+            <span class="label label-success">Офис: {{ item.city }}</span>
+        {% else %}
+            <span class="label label-info">Удаленная работа</span>
+        {% endif %}
 
         <hr/>
         <h3>Описание</h3>
         <p>{{ item.description }}</p>
-        <p>{{ item.salary }}</p>
-        {{ item.on_site }}
 
+        {% if item.employer_description %}
         <hr/>
         <h4>О Компании</h4>
         {{ item.employer_description }}
-        {{ item.employer_website }}
+        {% endif %}
     </div>
 
     <div class="col-lg-3">
@@ -26,6 +30,13 @@
           </div>
           <div class="panel-body">
               <dl>
+                  <dt>Город</dt>
+                  {% if item.on_site %}
+                      <dd>{{ item.city }}</dd>
+                  {% else %}
+                      <dd>Удаленная</dd>
+                  {% endif %}
+
                   {% if item.employer_name %}
                   <dt>Компания</dt>
                   <dd>{{ item.employer_name }}</dd>
@@ -33,19 +44,122 @@
 
                   {% if item.employer_website %}
                   <dt>Сайт</dt>
-                  <dd>{{ item.employer_website }}</dd>
+                  <dd><a target="_blank" href="{{ item.employer_website }}">{{ item.employer_website }}</a></dd>
                   {% endif %}
 
                   <dt>Оплата</dt>
                   <dd>{{ item.salary }}</dd>
               </dl>
 
-            Город: {{ item.city }}
-        {{ item.employer_name }}
+                <!-- Button trigger modal -->
+                <button class="btn btn-success" data-toggle="modal" data-target="#feedback_dlg">
+                  Откликнуться
+                </button>
+
 
           </div>
         </div>
 
     </div>
+</div>
 
+<!-- Modal -->
+<div class="modal fade" id="feedback_dlg" tabindex="-1" role="dialog" aria-labelledby="feedback_dlgLabel" aria-hidden="true" style="display: none">
+    <div class="modal-dialog" ng-app="formApp"  ng-controller="formController">
+
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="myModalLabel">Отправить отклик на вакансию</h4>
+            </div>
+
+            <!-- FORM -->
+            <form name="fb_form" ng-submit="processForm()">
+
+
+            <div class="modal-body">
+                    {% verbatim %}
+                    <div id="name-group" class="form-group" ng-class="{ 'has-error' : errorName }">
+                        <label>Ваше имя</label>
+                        <input type="text" name="name" class="form-control" placeholder="Например 'Олег'" ng-model="formData.name">
+                        <span class="help-block" ng-show="errorName">{{ errorName.0 }}</span>
+                    </div>
+
+                    <div id="email-group" class="form-group" ng-class="{ 'has-error' : errorEmail }">
+                        <label>Email</label>
+                        <input type="email" name="email" class="form-control" placeholder="" ng-model="formData.email">
+                        <span class="help-block" ng-show="errorEmail">{{ errorEmail.0 }}</span>
+                    </div>
+
+                    <div id="feedback-group" class="form-group" ng-class="{ 'has-error' : errorFeedback }">
+                        <label>Информация о себе</label>
+                        <textarea name="about" class="form-control"  ng-model="formData.about" rows="10"></textarea>
+                        <span class="help-block" ng-show="errorAbout">{{ errorAbout.0 }}</span>
+                    </div>
+                    {% endverbatim %}
+
+                    <input type="hidden" name="item_id" value="{{ item.id }}"/>
+
+
+
+                <!-- SHOW DATA FROM INPUTS AS THEY ARE BEING TYPED -->
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Отмена</button>
+                <button type="submit"  class="btn btn-primary">Отправить</button>
+            </div>
+
+            </form>
+        </div>
+
+
+    </div>
+
+</div>
+
+{% endblock %}
+
+{% block js %}{{ block.super }}
+    <script type="text/javascript">
+		var formApp = angular.module('formApp', []);
+
+        formApp.config(['$httpProvider', function ($httpProvider) {
+            $httpProvider.defaults.xsrfCookieName = 'csrftoken';
+            $httpProvider.defaults.xsrfHeaderName = 'X-CSRFToken';
+
+        }]);
+
+		formApp.controller('formController', function($scope, $http) {
+            $scope.formData = {'item_id':'{{ item.id }}'};
+
+            $scope.processForm = function() {
+
+                $http({
+                    method  : 'POST',
+                    url     : '{% url 'catalog_feedback' item.id %}',
+                    data    : $.param($scope.formData),
+                    headers : { 'Content-Type': 'application/x-www-form-urlencoded' }
+                })
+                    .success(function(data) {
+                        console.log(data);
+
+                        if (!data.success) {
+                            // if not successful, bind errors to error variables
+                            $scope.errorName = data.errors.name;
+                            $scope.errorEmail = data.errors.email;
+                            $scope.errorAbout = data.errors.about;
+                        } else {
+                            // if successful, bind success message to message
+                            $scope.errorName = $scope.errorEmail = $scope.errorAbout = false;
+                            $scope.message = data.message;
+                        }
+                    });
+            };
+
+
+		})
+
+
+    </script>
 {% endblock %}
