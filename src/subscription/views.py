@@ -1,10 +1,13 @@
 # coding=utf8
+import StringIO
 import json
 from django.contrib import messages
+from django.core.management import call_command
 
 from django.core.urlresolvers import reverse
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import render
+import sys
 from subscription.forms import SubscriptionForm, UnSubscriptionForm
 from subscription.models import Subscription
 
@@ -47,3 +50,17 @@ def unsubscribe(request):
         form = UnSubscriptionForm()
 
     return render(request, 'subscription/del.html', {'form': form})
+
+
+def send_notifications(request):
+    capture = StringIO.StringIO()
+    save_stdout = sys.stdout
+    save_stderr = sys.stderr
+
+    sys.stdout = sys.stderr = capture
+    call_command('subscription_emails', verbosity='2')
+
+    sys.stdout = save_stdout
+    sys.stderr = save_stderr
+
+    return HttpResponse('%s' % capture.getvalue())
