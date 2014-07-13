@@ -18,7 +18,7 @@
         {% if item.employer_description %}
         <hr/>
         <h4>О Компании</h4>
-        {{ item.employer_description }}
+        {{ item.employer_description|linebreaks }}
         {% endif %}
     </div>
 
