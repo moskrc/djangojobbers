@@ -8,7 +8,7 @@ class AddItemForm(forms.ModelForm):
 
     class Meta:
         model = Item
-        exclude = ['secret_key',]
+        exclude = ['secret_key', 'not_sended',]
 
 
 class ApplicationForm(forms.ModelForm):
