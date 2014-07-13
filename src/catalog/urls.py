@@ -8,5 +8,4 @@ urlpatterns = patterns('catalog.views',
     url(r'^(?P<item_id>\d+)/feedback/$', 'feedback', name='catalog_feedback'),
     url(r'^(?P<item_id>\d+)/edit/(?P<secret_key>.+)/$', 'edit', name='catalog_edit'),
     url(r'^(?P<item_id>\d+)/delete/(?P<secret_key>.+)/$', 'delete', name='catalog_delete'),
-    url(r'^subscribe/$', 'subscribe', name='catalog_subscribe'),
 )

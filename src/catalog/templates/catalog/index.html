@@ -6,14 +6,19 @@
             <div class="panel panel-success">
                  <div class="panel-heading">
 
-                    Добавлено: {{ i.created|date:"d.m.Y h:m:i" }} |
+                    <small>{{ i.created|date:"d.m.Y h:m:i" }}</small> |
                     {% if i.on_site %}
                         <span class="label label-success">Офис: {{ i.city }}</span>
                     {% else %}
                         <span class="label label-info">Удаленная работа</span>
                     {% endif %}
                     |
-                    <span class="label label-default">Оплата: {{ i.salary }}</span>
+                    <span class="label label-warning">Оплата: {{ i.salary }}</span>
+
+                  {% if i.employer_name %} |
+                  {{ i.employer_name }}
+                  {% endif %}
+
                  </div>
 
               <div class="panel-body">

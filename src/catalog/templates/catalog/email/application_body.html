@@ -7,13 +7,14 @@
 
 <h1>Новый отклик</h1>
 
-<table border="1" cellpadding="5" cellspacing="0" width="600px;">
-<tr><td>Вакансия:</td><td>{{application.item.title}}</td></tr>
-<tr><td>Полное описание:</td><td><a href="http://{{ site.domain }}{% url 'catalog_view' application.item.pk %}">Ссылка для просмотра вакансии</a></td></tr>
-<tr><td>Кандидат:</td><td>{{application.name}}</td></tr>
-<tr><td>Email:</td><td>{{application.email}}</td></tr>
-<tr><td>Отклик:</td><td>{{application.about|linebreaks}}</td></tr>
-</table>
+
+<p>
+Вакансия: {{application.item.title}}<br/>
+Полное описание: <a href="http://{{ site.domain }}{% url 'catalog_view' application.item.pk %}">Ссылка для просмотра вакансии</a><br/>
+Кандидат: {{application.name}}<br/>
+Email: {{application.email}}<br/>
+Отклик: {{application.about|linebreaks}}<br/>
+</p>
 
 </body>
 </html>

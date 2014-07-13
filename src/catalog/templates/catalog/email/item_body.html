@@ -7,15 +7,12 @@
 
 <h1>Информация о вашей вакансии</h1>
 
-<table border="1" cellpadding="5" cellspacing="0" width="600px;">
-<tr><td>Название:</td><td>{{item.title}}</td></tr>
-<tr><td>Описание:</td><td>{{item.description|linebreaks}}</td></tr>
-</table>
-
-<h3><a href="http://{{ site.domain }}{% url 'catalog_view' item.pk %}">Ссылка для просмотра вакансии</a></h3>
-
-<h3><a href="http://{{ site.domain }}{% url 'catalog_edit' item.pk item.secret_key %}">Ссылка для редактирования или удаления</a></h3>
-
+<p>
+Название: {{item.title}}<br/>
+Описание: {{item.description|linebreaks}}<br/>
+<a href="http://{{ site.domain }}{% url 'catalog_view' item.pk %}">Ссылка для просмотра вакансии</a>
+<a href="http://{{ site.domain }}{% url 'catalog_edit' item.pk item.secret_key %}">Ссылка для редактирования или удаления</a>
+</p>
 
 </body>
 </html>

@@ -18,7 +18,7 @@ def subscribe(request):
         if form.is_valid():
             subscription = form.save(commit=False)
             subscription.save()
-            messages.add_message(request, messages.INFO,
+            messages.add_message(request, messages.SUCCESS,
                                  u'Вы успешно подписаны на получение информации о новых вакансиях')
             return HttpResponseRedirect(reverse('home'))
         else:

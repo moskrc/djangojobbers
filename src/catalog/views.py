@@ -1,9 +1,8 @@
 # coding=utf8
 import json
 from django.contrib import messages
-from django.contrib.sites.models import Site
 from django.core.urlresolvers import reverse
-from django.http import HttpResponseRedirect, HttpResponse
+from django.http import HttpResponseRedirect, HttpResponse, HttpResponseForbidden
 from django.shortcuts import render, get_object_or_404
 from catalog.forms import AddItemForm, ApplicationForm
 from catalog.models import Item
@@ -53,17 +52,41 @@ def add(request):
 
 
 def edit(request, item_id, secret_key):
-    print item_id, secret_key
-    items = Item.objects.all()
-    return render(request, 'catalog/index.html', {'items': items})
+    item = get_object_or_404(Item, pk=item_id)
+
+    if item.secret_key != secret_key:
+        return HttpResponseForbidden('Forbidden')
+
+    if request.method == 'POST':
+        form = AddItemForm(request.POST, instance=item)
+        if form.is_valid():
+            new_item = form.save(commit=False)
+            new_item.secret_key = item.secret_key
+            new_item.save()
+
+            messages.add_message(request, messages.SUCCESS,
+                                 u'Ваше объявление успешно отредактировано!')
+            return HttpResponseRedirect(
+                reverse('catalog_edit', kwargs={'item_id': new_item.pk, 'secret_key': secret_key}))
+        else:
+            messages.add_message(request, messages.WARNING, u'Исправьте пожалуйста ошибки выделенные красным цветом')
+    else:
+        form = AddItemForm(instance=item)
+
+    return render(request, 'catalog/edit.html', {'form': form})
 
 
 def delete(request, item_id, secret_key):
-    print item_id, secret_key
-    items = Item.objects.all()
-    return render(request, 'catalog/index.html', {'items': items})
+    item = get_object_or_404(Item, pk=item_id)
+
+    if item.secret_key != secret_key:
+        return HttpResponseForbidden('Forbidden')
+
+    if request.method == 'POST':
+        item.delete()
+        messages.add_message(request, messages.SUCCESS, u'Ваше объявление успешно удалено!')
+        return HttpResponseRedirect(reverse('catalog_index'))
+
+    return render(request, 'catalog/delete.html', {'item': item})
 
 
-def subscribe(request):
-    items = Item.objects.all()
-    return render(request, 'catalog/index.html', {'items': items})

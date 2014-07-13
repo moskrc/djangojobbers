@@ -1,5 +1,6 @@
 #coding=utf8
 from datetime import datetime
+from django.conf import settings
 from django.contrib.sites.models import Site
 from django.core.mail import EmailMultiAlternatives
 
@@ -23,7 +24,7 @@ class Item(TimeStampedModel):
     employer_description = models.TextField(u'Описание', blank=True, null=True, help_text=u'Ваше краткое описание')
     employer_website = models.URLField(u'Сайт', blank=True, null=True)
     secret_key = models.CharField(max_length=255, blank=True)
-    not_sended = models.BooleanField(default=True, blank=True)
+    not_sended = models.BooleanField(default=True)
 
 
     def __unicode__(self):
@@ -49,7 +50,7 @@ def send_info(sender, instance=None, created=False, **kwargs):
         html_body = render_to_string('catalog/email/item_body.html', c)
         text_body = strip_tags(html_body)
 
-        msg = EmailMultiAlternatives(subject, text_body, None, instance.email.split(','))
+        msg = EmailMultiAlternatives('[%s] %s' % (settings.EMAIL_SUBJECT_PREFIX, subject), text_body, None, instance.email.split(','))
         msg.attach_alternative(html_body, "text/html")
         msg.send()
 
@@ -79,6 +80,6 @@ def send_application(sender, instance=None, created=False, **kwargs):
         html_body = render_to_string('catalog/email/application_body.html', c)
         text_body = strip_tags(html_body)
 
-        msg = EmailMultiAlternatives(subject, text_body, instance.email, instance.item.email.split(','))
+        msg = EmailMultiAlternatives('[%s] %s' % (settings.EMAIL_SUBJECT_PREFIX, subject), text_body, instance.email, instance.item.email.split(','))
         msg.attach_alternative(html_body, "text/html")
         msg.send()
