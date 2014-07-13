@@ -1,6 +1,5 @@
 #coding=utf8
 from datetime import datetime
-from django.conf import settings
 from django.contrib.sites.models import Site
 from django.core.mail import EmailMultiAlternatives
 
@@ -50,7 +49,7 @@ def send_info(sender, instance=None, created=False, **kwargs):
         html_body = render_to_string('catalog/email/item_body.html', c)
         text_body = strip_tags(html_body)
 
-        msg = EmailMultiAlternatives('[%s] %s' % (settings.EMAIL_SUBJECT_PREFIX, subject), text_body, None, instance.email.split(','))
+        msg = EmailMultiAlternatives(subject, text_body, None, instance.email.split(','))
         msg.attach_alternative(html_body, "text/html")
         msg.send()
 
@@ -80,6 +79,6 @@ def send_application(sender, instance=None, created=False, **kwargs):
         html_body = render_to_string('catalog/email/application_body.html', c)
         text_body = strip_tags(html_body)
 
-        msg = EmailMultiAlternatives('[%s] %s' % (settings.EMAIL_SUBJECT_PREFIX, subject), text_body, instance.email, instance.item.email.split(','))
+        msg = EmailMultiAlternatives(subject, text_body, instance.email, instance.item.email.split(','))
         msg.attach_alternative(html_body, "text/html")
         msg.send()

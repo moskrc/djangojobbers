@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 import os
-from django.conf import settings
 from django.contrib.sites.models import Site
 from django.core.mail import EmailMultiAlternatives
 from django.core.management.base import NoArgsCommand
@@ -28,7 +27,7 @@ class Command(NoArgsCommand):
                 html_body = render_to_string('catalog/email/new_item_body.html', c)
                 text_body = strip_tags(html_body)
 
-                msg = EmailMultiAlternatives('[%s] %s' % (settings.EMAIL_SUBJECT_PREFIX, subject), text_body, None, s.email.split(','))
+                msg = EmailMultiAlternatives(subject, text_body, None, s.email.split(','))
                 msg.attach_alternative(html_body, "text/html")
                 msg.send()
 
