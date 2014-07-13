@@ -73,7 +73,7 @@ def edit(request, item_id, secret_key):
     else:
         form = AddItemForm(instance=item)
 
-    return render(request, 'catalog/edit.html', {'form': form})
+    return render(request, 'catalog/edit.html', {'form': form, 'item': item})
 
 
 def delete(request, item_id, secret_key):

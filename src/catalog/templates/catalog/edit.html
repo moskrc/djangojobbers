@@ -42,6 +42,7 @@
 
         <div class="form-group">
             <button type="submit" class="btn btn-primary col-group">Отправить</button>
+            <a class="btn btn-danger" href="{% url 'catalog_delete' item.id item.secret_key %}">Удалить</a>
         </div>
 
     </form>

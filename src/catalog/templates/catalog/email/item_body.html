@@ -10,7 +10,7 @@
 <p>
 Название: {{item.title}}<br/>
 Описание: {{item.description|linebreaks}}<br/>
-<a href="http://{{ site.domain }}{% url 'catalog_view' item.pk %}">Ссылка для просмотра вакансии</a>
+<a href="http://{{ site.domain }}{% url 'catalog_view' item.pk %}">Ссылка для просмотра вакансии</a><br/>
 <a href="http://{{ site.domain }}{% url 'catalog_edit' item.pk item.secret_key %}">Ссылка для редактирования или удаления</a>
 </p>
 
