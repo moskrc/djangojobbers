@@ -11,6 +11,10 @@ from django.utils.html import strip_tags
 from django_extensions.db.models import TimeStampedModel
 from common.utils import make_uniq_key
 
+class ActiveItemManager(models.Manager):
+    def get_queryset(self):
+        return super(ActiveItemManager, self).get_queryset().filter(is_active=True)
+
 
 class Item(TimeStampedModel):
     title = models.CharField(u'Название', max_length=255, help_text=u'Краткое описание вакансии')
@@ -24,6 +28,10 @@ class Item(TimeStampedModel):
     employer_website = models.URLField(u'Сайт', blank=True, null=True)
     secret_key = models.CharField(max_length=255, blank=True)
     not_sended = models.BooleanField(default=True)
+    is_active = models.BooleanField(default=True)
+
+    objects = models.Manager()
+    active_objects = ActiveItemManager()
 
 
     def __unicode__(self):

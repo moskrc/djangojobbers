@@ -9,17 +9,17 @@ from catalog.models import Item
 
 
 def index(request):
-    items = Item.objects.all().order_by('-id')
+    items = Item.active_objects.all().order_by('-id')
     return render(request, 'catalog/index.html', {'items': items})
 
 
 def view(request, item_id):
-    item = get_object_or_404(Item, pk=item_id)
+    item = get_object_or_404(Item.active_objects, pk=item_id)
     return render(request, 'catalog/view.html', {'item': item})
 
 
 def feedback(request, item_id):
-    item = get_object_or_404(Item, pk=item_id)
+    item = get_object_or_404(Item.active_objects, pk=item_id)
 
     if request.method == 'POST':
         form = ApplicationForm(request.POST)
@@ -52,7 +52,7 @@ def add(request):
 
 
 def edit(request, item_id, secret_key):
-    item = get_object_or_404(Item, pk=item_id)
+    item = get_object_or_404(Item.active_objects, pk=item_id)
 
     if item.secret_key != secret_key:
         return HttpResponseForbidden('Forbidden')
@@ -77,13 +77,14 @@ def edit(request, item_id, secret_key):
 
 
 def delete(request, item_id, secret_key):
-    item = get_object_or_404(Item, pk=item_id)
+    item = get_object_or_404(Item.active_objects, pk=item_id)
 
     if item.secret_key != secret_key:
         return HttpResponseForbidden('Forbidden')
 
     if request.method == 'POST':
-        item.delete()
+        item.is_active = False
+        item.save()
         messages.add_message(request, messages.SUCCESS, u'Ваше объявление успешно удалено!')
         return HttpResponseRedirect(reverse('catalog_index'))
 

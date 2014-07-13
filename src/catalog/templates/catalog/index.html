@@ -23,7 +23,7 @@
 
               <div class="panel-body">
                 <h2>{{ i.title }}</h2>
-                  <p>{{ i.description|truncatewords:100 }}</p>
+                  <p>{{ i.description|linebreaks|truncatewords:100 }}</p>
               </div>
 
               <div class="panel-footer"><a class="btn btn-default" href="{% url 'catalog_view' i.id %}">Подробнее</a> </div>
