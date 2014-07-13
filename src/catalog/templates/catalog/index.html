@@ -1,11 +1,29 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h2>Вакансии Django</h2>
-
-    <ul>
     {% for i in items %}
-        <li><a href="{% url 'catalog_view' i.id %}">{{ i }}</a></li>
+
+            <div class="panel panel-success">
+                 <div class="panel-heading">
+
+                    Добавлено: {{ i.created|date:"d.m.Y h:m:i" }} |
+                    {% if i.on_site %}
+                        <span class="label label-success">Офис: {{ i.city }}</span>
+                    {% else %}
+                        <span class="label label-info">Удаленная работа</span>
+                    {% endif %}
+                    |
+                    <span class="label label-default">Оплата: {{ i.salary }}</span>
+                 </div>
+
+              <div class="panel-body">
+                <h2>{{ i.title }}</h2>
+                  <p>{{ i.description|truncatewords:100 }}</p>
+              </div>
+
+              <div class="panel-footer"><a class="btn btn-default" href="{% url 'catalog_view' i.id %}">Подробнее</a> </div>
+            </div>
+
     {% endfor %}
-    </ul>
+
 {% endblock %}

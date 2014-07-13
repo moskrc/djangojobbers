@@ -10,7 +10,7 @@ from catalog.models import Item
 
 
 def index(request):
-    items = Item.objects.all()
+    items = Item.objects.all().order_by('-id')
     return render(request, 'catalog/index.html', {'items': items})
 
 
