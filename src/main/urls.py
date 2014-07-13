@@ -7,5 +7,6 @@ urlpatterns = patterns('',
     url(r'^$', 'catalog.views.index', name='home'),
     url(r'^catalog/', include('catalog.urls')),
     url(r'^subscription/', include('subscription.urls')),
+    url(r'^feedback/', include('feedback.urls')),
     url(r'^admin/', include(admin.site.urls)),
 )

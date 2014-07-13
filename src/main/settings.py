@@ -15,6 +15,11 @@ import sys
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
 
+ADMINS = (
+    ('Vitaliy', 'moskrc@gmail.com'),
+)
+MANAGERS=ADMINS
+
 ##################################################################################
 
 sys.path.append(os.path.join(BASE_DIR, 'shared'))
@@ -79,6 +84,7 @@ INSTALLED_APPS = (
     'common',
     'catalog',
     'subscription',
+    'feedback'
 )
 
 MIDDLEWARE_CLASSES = (

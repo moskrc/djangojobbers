@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block title %}Обратная связь - {{block.super}}{% endblock %}
+
+{% block header %}
+    <h1>Обратная связь</h1>
+{% endblock %}
+
+{% block content %}
+        <div class="col-lg-8">
+            <br/>
+            <form class="form form-horizontal" method="POST" action=".">{% csrf_token %}
+                {% include "common/elements/form.html" with form=form %}
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary col-group">Отправить</button>
+                </div>
+
+            </form>
+        </div>
+        <div class="col-lg-4">
+            <h4>Уважаемые Друзья!</h4>
+
+            <p>Вы можете задать нам вопрос воспользовавшись этой формой.</p>
+
+            <p>Впишете в раздел "Имя" как нам к вам обратиться, заполните адрес электронной почты и опишите подробно ваш вопрос в поле "Сообщение".</p>
+
+            <p>Мы ответим вам в течении рабочего дня.</p>
+
+            <p>Спасибо!</p>
+        </div>
+
+
+{% endblock %}
