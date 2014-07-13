@@ -90,6 +90,8 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
 
+EMAIL_SUBJECT_PREFIX = 'DJANGO JOBBERS.RU'
+
 
 ROOT_URLCONF = 'main.urls'
 
