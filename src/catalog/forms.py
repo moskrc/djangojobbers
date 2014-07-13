@@ -1,12 +1,19 @@
 from django import forms
-from models import Item
+from models import Item, Application
 
 
 class AddItemForm(forms.ModelForm):
+    # honeyspot
+    country = forms.CharField(required=False)
+
     class Meta:
         model = Item
 
-class ItemFeedbackForm(forms.Form):
-    name = forms.CharField()
-    email = forms.EmailField()
-    about = forms.CharField()
+
+class ApplicationForm(forms.ModelForm):
+    # honeyspot
+    country = forms.CharField(required=False)
+
+    class Meta:
+        model = Application
+        exclude = ['item',]

@@ -5,7 +5,7 @@ from django.contrib.sites.models import Site
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import render, get_object_or_404
-from catalog.forms import AddItemForm, ItemFeedbackForm
+from catalog.forms import AddItemForm, ApplicationForm
 from catalog.models import Item
 
 
@@ -18,16 +18,18 @@ def view(request, item_id):
     item = get_object_or_404(Item, pk=item_id)
     return render(request, 'catalog/view.html', {'item': item})
 
-def send_application(item, application):
-    pass
 
 def feedback(request, item_id):
     item = get_object_or_404(Item, pk=item_id)
 
     if request.method == 'POST':
-        form = ItemFeedbackForm(request.POST)
+        form = ApplicationForm(request.POST)
         if form.is_valid():
-            send_application(item, form.cleaned_data)
+            if not form.cleaned_data['country']:
+                new_feedback = form.save(commit=False)
+                new_feedback.item = item
+                new_feedback.save()
+
             return HttpResponse(json.dumps({'success': True, 'message': 'Success'}), content_type="application/json")
         else:
             return HttpResponse(json.dumps({'success': False, 'errors': form.errors}), content_type="application/json")

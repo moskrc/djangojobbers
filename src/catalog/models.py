@@ -51,3 +51,33 @@ def send_info(sender, instance=None, created=False, **kwargs):
         msg = EmailMultiAlternatives(subject, text_body, None, instance.email.split(','))
         msg.attach_alternative(html_body, "text/html")
         msg.send()
+
+
+class Application(TimeStampedModel):
+    item = models.ForeignKey(Item)
+    name = models.CharField(max_length=255)
+    email = models.EmailField()
+    about = models.TextField(max_length=2048)
+
+    def __unicode__(self):
+        return self.name
+
+    class Meta:
+        pass
+
+
+@receiver(post_save, sender=Application)
+def send_application(sender, instance=None, created=False, **kwargs):
+    if created:
+        c = {
+            'site': Site.objects.get_current(),
+            'application': instance,
+        }
+
+        subject = render_to_string('catalog/email/application_subject.txt', c)
+        html_body = render_to_string('catalog/email/application_body.html', c)
+        text_body = strip_tags(html_body)
+
+        msg = EmailMultiAlternatives(subject, text_body, None, instance.item.email.split(','))
+        msg.attach_alternative(html_body, "text/html")
+        msg.send()

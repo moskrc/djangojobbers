@@ -18,3 +18,15 @@ body {
   text-align: right;
   padding-right: 5px;
 }
+
+#toast-container {
+  margin-top: 20px;
+}
+
+#toast-container .toast {
+  opacity: 0.9;
+}
+
+.country_field {
+  display: none;
+}

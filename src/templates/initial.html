@@ -18,6 +18,7 @@
     {% block css %}
         <link href="{% static "bower/bootstrap/dist/css/bootstrap.css" %}" media="all" type="text/css" rel="stylesheet"/>
         <link href="{% static "bower/bootstrap/dist/css/bootstrap-theme.css" %}" media="all" type="text/css" rel="stylesheet"/>
+        <link href="{% static "bower/toastr/toastr.min.css" %}" media="all" type="text/css" rel="stylesheet"/>
 
         {% compress css %}
             <link href="{% static "css/style.scss" %}" media="all" type="text/x-sass" rel="stylesheet"/>
@@ -33,6 +34,7 @@
 {% block js %}
     <script type="text/javascript" src="{% static "bower/jquery/dist/jquery.min.js" %}"></script>
     <script type="text/javascript" src="{% static "bower/angular/angular.min.js" %}"></script>
+    <script type="text/javascript" src="{% static "bower/toastr/toastr.min.js" %}"></script>
     <script type="text/javascript" src="{% static "bower/bootstrap/dist/js/bootstrap.min.js" %}"></script>
 
     {% compress js %}

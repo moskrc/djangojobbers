@@ -79,23 +79,30 @@
 
             <div class="modal-body">
                     {% verbatim %}
-                    <div id="name-group" class="form-group" ng-class="{ 'has-error' : errorName }">
+                    <div id="name-group" class="form-group name_field" ng-class="{ 'has-error' : errorName }">
                         <label>Ваше имя</label>
                         <input type="text" name="name" class="form-control" placeholder="Например 'Олег'" ng-model="formData.name">
                         <span class="help-block" ng-show="errorName">{{ errorName.0 }}</span>
                     </div>
 
-                    <div id="email-group" class="form-group" ng-class="{ 'has-error' : errorEmail }">
+                    <div id="email-group" class="form-group email_field" ng-class="{ 'has-error' : errorEmail }">
                         <label>Email</label>
                         <input type="email" name="email" class="form-control" placeholder="" ng-model="formData.email">
                         <span class="help-block" ng-show="errorEmail">{{ errorEmail.0 }}</span>
                     </div>
 
-                    <div id="feedback-group" class="form-group" ng-class="{ 'has-error' : errorFeedback }">
+                    <div id="feedback-group" class="form-group about_field" ng-class="{ 'has-error' : errorFeedback }">
                         <label>Информация о себе</label>
                         <textarea name="about" class="form-control"  ng-model="formData.about" rows="10"></textarea>
                         <span class="help-block" ng-show="errorAbout">{{ errorAbout.0 }}</span>
                     </div>
+
+                    <div id="name-group" class="form-group country_field" ng-class="{ 'has-error' : errorCountry }">
+                        <label>Страна</label>
+                        <input type="text" name="country" class="form-control" placeholder="Например 'Россия'" ng-model="formData.country">
+                        <span class="help-block" ng-show="errorCountry">{{ errorCountry.0 }}</span>
+                    </div>
+
                     {% endverbatim %}
 
                     <input type="hidden" name="item_id" value="{{ item.id }}"/>
@@ -122,6 +129,12 @@
 
 {% block js %}{{ block.super }}
     <script type="text/javascript">
+        toastr.options = {
+          "closeButton": true,
+          "positionClass": "toast-top-full-width"
+        }
+
+
 		var formApp = angular.module('formApp', []);
 
         formApp.config(['$httpProvider', function ($httpProvider) {
@@ -131,10 +144,9 @@
         }]);
 
 		formApp.controller('formController', function($scope, $http) {
-            $scope.formData = {'item_id':'{{ item.id }}'};
+            $scope.formData = {};
 
             $scope.processForm = function() {
-
                 $http({
                     method  : 'POST',
                     url     : '{% url 'catalog_feedback' item.id %}',
@@ -153,6 +165,9 @@
                             // if successful, bind success message to message
                             $scope.errorName = $scope.errorEmail = $scope.errorAbout = false;
                             $scope.message = data.message;
+
+                            toastr.success('Ваш отклик был успешно отправлен!')
+                            $('#feedback_dlg').modal('toggle');
                         }
                     });
             };
