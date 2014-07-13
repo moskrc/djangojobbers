@@ -77,7 +77,8 @@ INSTALLED_APPS = (
     'compressor',
     
     'common',
-    'catalog'
+    'catalog',
+    'subscription',
 )
 
 MIDDLEWARE_CLASSES = (

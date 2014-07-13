@@ -3,13 +3,13 @@ from catalog.models import Item, Application
 
 
 class ItemAdmin(admin.ModelAdmin):
-    pass
+    list_display = ['title', 'email', 'salary', 'employer_name', 'city', 'on_site']
 
 admin.site.register(Item, ItemAdmin)
 
 
 
 class ApplicationAdmin(admin.ModelAdmin):
-    pass
+    list_display = ['name', 'email', 'item', 'about',]
 
 admin.site.register(Application, ApplicationAdmin)

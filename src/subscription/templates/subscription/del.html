@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h2>Отписаться от новых вакансий</h2>
+
+    <form id="unsubscription" action="." method="POST" class="form" role="form">{% csrf_token %}
+        {% include 'common/elements/form_hidden_fields.html' %}
+        {% include 'common/elements/form_errors.html' %}
+
+        <br/>
+        {% include 'common/elements/form_field.html' with item=form.email %}
+
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary col-group">Отправить</button>
+        </div>
+
+    </form>
+{% endblock %}

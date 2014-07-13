@@ -12,7 +12,7 @@
 <tr><td>Полное описание:</td><td><a href="http://{{ site.domain }}{% url 'catalog_view' application.item.pk %}">Ссылка для просмотра вакансии</a></td></tr>
 <tr><td>Кандидат:</td><td>{{application.name}}</td></tr>
 <tr><td>Email:</td><td>{{application.email}}</td></tr>
-<tr><td>Отклик:</td><td>{{application.about}}</td></tr>
+<tr><td>Отклик:</td><td>{{application.about|linebreaks}}</td></tr>
 </table>
 
 </body>

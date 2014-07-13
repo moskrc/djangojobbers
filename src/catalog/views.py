@@ -41,7 +41,7 @@ def add(request):
         if form.is_valid():
             new_item = form.save(commit=False)
             new_item.save()
-            messages.add_message(request, messages.INFO,
+            messages.add_message(request, messages.SUCCESS,
                                  u'Ваше объявление успешно добавлено! Письмо со ссылкой для редактирования или удаления отправлена вам на email.')
             return HttpResponseRedirect(reverse('catalog_view', kwargs={'item_id': new_item.pk}))
         else:
