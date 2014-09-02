@@ -16,10 +16,10 @@ class Command(NoArgsCommand):
     def handle(self, *args, **options):
 
         for i in Item.objects.filter(not_sended=True):
-            for s in Subscription.objects.all():
-                print 'Send to %s' % s.email
+            for s in Subscription.objects.filter(site=i.site):
+                print 'Send %s to %s' % (i, s)
                 c = {
-                    'site': Site.objects.get_current(),
+                    'site': i.site,
                     'item': i,
                 }
 

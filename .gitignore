@@ -5,6 +5,9 @@ logs/*
 
 src/static_override/CACHE/
 src/main/settings_local.py
+src/main/settings/djangojobbers_local.py
+src/main/settings/phpjobbers_local.py
+src/main/settings/railsjobbers_local.py
 src/media/*
 src/static/*
 src/sqlite3.db

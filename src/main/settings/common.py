@@ -12,8 +12,8 @@ https://docs.djangoproject.com/en/dev/ref/settings/
 import os
 import sys
 
-BASE_DIR = os.path.dirname(os.path.dirname(__file__))
-
+BASE_DIR = os.path.abspath(os.path.join(os.path.dirname(os.path.dirname(__file__)), os.pardir))
+print BASE_DIR
 
 ADMINS = (
     ('Vitaliy', 'moskrc@gmail.com'),
@@ -24,10 +24,7 @@ MANAGERS=ADMINS
 
 sys.path.append(os.path.join(BASE_DIR, 'shared'))
 
-try:
-    from settings_local import DEBUG
-except ImportError:
-    DEBUG = False
+DEBUG = True
 
 ASSETS_DEBUG = TEMPLATE_DEBUG = DEBUG
 
@@ -47,18 +44,18 @@ TEMPLATE_DIRS = (
 
 LOGOUT_URL = '/'
 
-# TEMPLATE_CONTEXT_PROCESSORS = (
-#     'django.contrib.auth.context_processors.auth',
-#     'django.core.context_processors.debug',
-#     'django.core.context_processors.i18n',
-#     'django.core.context_processors.media',
-#     'django.core.context_processors.static',
-#     'django.core.context_processors.tz',
-#     'django.core.context_processors.request',
-#     'django.contrib.messages.context_processors.messages',
-#
-#     #'main.context_processors.main_processor',
-# )
+TEMPLATE_CONTEXT_PROCESSORS = (
+    'django.contrib.auth.context_processors.auth',
+    'django.core.context_processors.debug',
+    'django.core.context_processors.i18n',
+    'django.core.context_processors.media',
+    'django.core.context_processors.static',
+    'django.core.context_processors.tz',
+    'django.core.context_processors.request',
+    'django.contrib.messages.context_processors.messages',
+
+    'main.context_processors.main_processor',
+)
 
 
 #################################################################################
@@ -107,12 +104,19 @@ WSGI_APPLICATION = 'main.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/dev/ref/settings/#databases
 
+EMAIL_PORT = 1025
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'moskrc_jobbers',
+        'USER': 'moskrc_jobbers',
+        'PASSWORD': '1346795',
+        'HOST': 'localhost',
+        'PORT': '',
     }
 }
+
 
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
@@ -139,17 +143,10 @@ USE_L10N = True
 
 USE_TZ = True
 
-SITE_ID = 1
+SITE_ID = None
 
 ##################################################################################
 
-try:
-    from settings_local import *
-except NameError:
-    pass
-
-if not SECRET_KEY:
-    raise Exception('You must to provide SECRET_KEY value in settings_local.py')
 
 if 'test' in sys.argv:
     DATABASES['default'] = {'ENGINE': 'django.db.backends.sqlite3', 'NAME': 'test.db3'}

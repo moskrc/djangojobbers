@@ -1,6 +1,7 @@
 # coding=utf8
 import json
 from django.contrib import messages
+from django.contrib.sites.models import Site
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect, HttpResponse, HttpResponseForbidden
 from django.shortcuts import render, get_object_or_404
@@ -39,6 +40,7 @@ def add(request):
         form = AddItemForm(request.POST)
         if form.is_valid():
             new_item = form.save(commit=False)
+            new_item.site = Site.objects.get_current()
             new_item.save()
             messages.add_message(request, messages.SUCCESS,
                                  u'Ваше объявление успешно добавлено! Письмо со ссылкой для редактирования или удаления отправлена вам на email.')

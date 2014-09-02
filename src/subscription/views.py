@@ -2,6 +2,7 @@
 import StringIO
 import json
 from django.contrib import messages
+from django.contrib.sites.models import Site
 from django.core.management import call_command
 
 from django.core.urlresolvers import reverse
@@ -17,6 +18,7 @@ def subscribe(request):
         form = SubscriptionForm(request.POST)
         if form.is_valid():
             subscription = form.save(commit=False)
+            subscription.site = Site.objects.get_current()
             subscription.save()
             messages.add_message(request, messages.SUCCESS,
                                  u'Вы успешно подписаны на получение информации о новых вакансиях')
