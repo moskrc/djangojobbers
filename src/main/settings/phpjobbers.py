@@ -13,6 +13,7 @@ ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'phpjobbers.ru']
 
 SERVER_EMAIL = DEFAULT_FROM_EMAIL = 'noreply@phpjobbers.ru'
 EMAIL_SUBJECT_PREFIX = '[phpjobbers.ru] '
+EMAIL_HOST = 'localhost'
 EMAIL_HOST_USER = 'noreply@phpjobbers.ru'
 EMAIL_HOST_PASSWORD = '1346795'
 DEFAULT_FROM_EMAIL='noreply@phpjobbers.ru'
