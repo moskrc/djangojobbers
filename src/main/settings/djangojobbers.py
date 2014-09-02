@@ -2,6 +2,8 @@
 
 from common import *
 
+SITE_ID = 1
+
 try:
     from djangojobbers_local import DEBUG
 except ImportError:
@@ -11,7 +13,9 @@ ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'djangojobbers.ru']
 
 SERVER_EMAIL = DEFAULT_FROM_EMAIL = 'noreply@djangojobbers.ru'
 EMAIL_SUBJECT_PREFIX = '[djangojobbers.ru] '
-
+EMAIL_HOST_USER = 'noreply@djangojobbers.ru'
+EMAIL_HOST_PASSWORD = '1346795'
+DEFAULT_FROM_EMAIL='noreply@djangojobbers.ru'
 
 TEMPLATE_DIRS = (
     os.path.join(BASE_DIR, 'templates/per_sites/djangojobbers'),
@@ -26,4 +30,3 @@ except NameError:
 if not SECRET_KEY:
     raise Exception('You must to provide SECRET_KEY value in djangojobbers_local.py')
 
-SITE_ID = 1
