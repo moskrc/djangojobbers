@@ -2,8 +2,6 @@
 
 from common import *
 
-SITE_ID = 1
-
 try:
     from djangojobbers_local import DEBUG
 except ImportError:
@@ -27,3 +25,5 @@ except NameError:
 
 if not SECRET_KEY:
     raise Exception('You must to provide SECRET_KEY value in djangojobbers_local.py')
+
+SITE_ID = 1

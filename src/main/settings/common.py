@@ -125,9 +125,6 @@ STATICFILES_FINDERS = (
     'compressor.finders.CompressorFinder',
 )
 
-COMPRESS_PRECOMPILERS = (
-       ('text/x-sass', 'pyscss {infile} > {outfile}'),
-)
 
 COMPRESS_ROOT = BASE_DIR + '/static'
 

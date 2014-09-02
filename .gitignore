@@ -11,4 +11,4 @@ src/main/settings/railsjobbers_local.py
 src/media/*
 src/static/*
 src/sqlite3.db
-src/project.log
+src/*.log

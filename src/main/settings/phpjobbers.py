@@ -2,8 +2,6 @@
 
 from common import *
 
-SITE_ID = 3
-
 try:
     from phpjobbers_local import DEBUG
 except ImportError:
@@ -27,3 +25,5 @@ except NameError:
 
 if not SECRET_KEY:
     raise Exception('You must to provide SECRET_KEY value in phpjobbers_local.py')
+
+SITE_ID = 3
