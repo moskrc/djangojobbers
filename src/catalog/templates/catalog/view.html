@@ -1,5 +1,7 @@
 {% extends "base.html" %}
 
+{% block title %}{{ item.title }}{% endblock %}
+
 {% block content %}
 <div class="row">
     <div class="col-lg-9">
@@ -13,7 +15,7 @@
 
         <hr/>
         <h3>Описание</h3>
-        <p>{{ item.description|linebreaks }}</p>
+        {{ item.description|linebreaks }}
 
         {% if item.employer_description %}
         <hr/>
@@ -64,8 +66,8 @@
 </div>
 
 <!-- Modal -->
-<div class="modal fade" id="feedback_dlg" tabindex="-1" role="dialog" aria-labelledby="feedback_dlgLabel" aria-hidden="true" style="display: none">
-    <div class="modal-dialog" ng-app="formApp"  ng-controller="formController">
+<div class="modal fade" id="feedback_dlg" tabindex="-1" role="dialog" aria-hidden="true" style="display: none">
+    <div class="modal-dialog" data-ng-app="formApp"  data-ng-controller="formController">
 
         <div class="modal-content">
             <div class="modal-header">
@@ -74,33 +76,33 @@
             </div>
 
             <!-- FORM -->
-            <form name="fb_form" ng-submit="processForm()">
+            <form name="fb_form" data-ng-submit="processForm()">
 
 
             <div class="modal-body">
                     {% verbatim %}
-                    <div id="name-group" class="form-group name_field" ng-class="{ 'has-error' : errorName }">
+                    <div id="name-group" class="form-group name_field" data-ng-class="{ 'has-error' : errorName }">
                         <label>Ваше имя</label>
-                        <input type="text" name="name" class="form-control" placeholder="" ng-model="formData.name">
-                        <span class="help-block" ng-show="errorName">{{ errorName.0 }}</span>
+                        <input type="text" name="name" class="form-control" placeholder="" data-ng-model="formData.name">
+                        <span class="help-block" data-ng-show="errorName">{{ errorName.0 }}</span>
                     </div>
 
-                    <div id="email-group" class="form-group email_field" ng-class="{ 'has-error' : errorEmail }">
+                    <div id="email-group" class="form-group email_field" data-ng-class="{ 'has-error' : errorEmail }">
                         <label>Email</label>
-                        <input type="email" name="email" class="form-control" placeholder="" ng-model="formData.email">
-                        <span class="help-block" ng-show="errorEmail">{{ errorEmail.0 }}</span>
+                        <input type="email" name="email" class="form-control" placeholder="" data-ng-model="formData.email">
+                        <span class="help-block" data-ng-show="errorEmail">{{ errorEmail.0 }}</span>
                     </div>
 
-                    <div id="feedback-group" class="form-group about_field" ng-class="{ 'has-error' : errorFeedback }">
+                    <div id="feedback-group" class="form-group about_field" data-ng-class="{ 'has-error' : errorFeedback }">
                         <label>Информация о себе</label>
-                        <textarea name="about" class="form-control"  ng-model="formData.about" rows="10"></textarea>
-                        <span class="help-block" ng-show="errorAbout">{{ errorAbout.0 }}</span>
+                        <textarea name="about" class="form-control"  data-ng-model="formData.about" rows="10"></textarea>
+                        <span class="help-block" data-ng-show="errorAbout">{{ errorAbout.0 }}</span>
                     </div>
 
-                    <div id="name-group" class="form-group country_field" ng-class="{ 'has-error' : errorCountry }">
+                    <div id="country-group" class="form-group country_field" data-ng-class="{ 'has-error' : errorCountry }">
                         <label>Страна</label>
-                        <input type="text" name="country" class="form-control" placeholder="Например 'Россия'" ng-model="formData.country">
-                        <span class="help-block" ng-show="errorCountry">{{ errorCountry.0 }}</span>
+                        <input type="text" name="country" class="form-control" placeholder="Например 'Россия'" data-ng-model="formData.country">
+                        <span class="help-block" data-ng-show="errorCountry">{{ errorCountry.0 }}</span>
                     </div>
 
                     {% endverbatim %}
