@@ -106,14 +106,15 @@ WSGI_APPLICATION = 'main.wsgi.application'
 
 EMAIL_PORT = 1025
 
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'moskrc_jobbers',
-        'USER': 'moskrc_jobbers',
+        'NAME': 'moskrc_jobs',
+        'USER': 'moskrc_jobs',
         'PASSWORD': '1346795',
-        'HOST': 'localhost',
-        'PORT': '',
+        'HOST': '',
+        'PORT': ''
     }
 }
 
@@ -132,6 +133,10 @@ COMPRESS_ROOT = BASE_DIR + '/static'
 
 # Internationalization
 # https://docs.djangoproject.com/en/dev/topics/i18n/
+
+COMPRESS_PRECOMPILERS = (
+       ('text/x-sass', '/home/moskrc/web/djangojobbers.ru/private/env/bin/pyscss {infile} > {outfile}'),
+)
 
 LANGUAGE_CODE = 'ru-RU'
 
