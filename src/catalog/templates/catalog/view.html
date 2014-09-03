@@ -67,7 +67,7 @@
 
 <!-- Modal -->
 <div class="modal fade" id="feedback_dlg" tabindex="-1" role="dialog" aria-hidden="true" style="display: none">
-    <div class="modal-dialog" data-ng-app="formApp"  data-ng-controller="formController">
+    <div class="modal-dialog" data-ng-app="formApp"  data-ng-controller="formController" data-ng-init="init('{% url 'catalog_feedback' item.id %}')">
 
         <div class="modal-content">
             <div class="modal-header">
@@ -148,10 +148,14 @@
 		formApp.controller('formController', function($scope, $http) {
             $scope.formData = {};
 
+            $scope.init = function(url) {
+                $scope.url = url;
+            }
+
             $scope.processForm = function() {
                 $http({
                     method  : 'POST',
-                    url     : '{% url 'catalog_feedback' item.id %}',
+                    url     : $scope.url,
                     data    : $.param($scope.formData),
                     headers : { 'Content-Type': 'application/x-www-form-urlencoded' }
                 })
