@@ -3,8 +3,9 @@ import json
 from django.contrib import messages
 from django.contrib.sites.models import Site
 from django.core.urlresolvers import reverse
-from django.http import HttpResponseRedirect, HttpResponse, HttpResponseForbidden
+from django.http import HttpResponseRedirect, HttpResponse, HttpResponseForbidden, HttpResponseNotAllowed
 from django.shortcuts import render, get_object_or_404
+from django.views.decorators.http import require_POST
 from catalog.forms import AddItemForm, ApplicationForm
 from catalog.models import Item
 
@@ -18,22 +19,20 @@ def view(request, item_id):
     item = get_object_or_404(Item.active_objects, pk=item_id)
     return render(request, 'catalog/view.html', {'item': item})
 
-
+@require_POST
 def feedback(request, item_id):
     item = get_object_or_404(Item.active_objects, pk=item_id)
 
-    if request.method == 'POST':
-        form = ApplicationForm(request.POST)
-        if form.is_valid():
-            if not form.cleaned_data['country']:
-                new_feedback = form.save(commit=False)
-                new_feedback.item = item
-                new_feedback.save()
+    form = ApplicationForm(request.POST)
+    if form.is_valid():
+        if not form.cleaned_data['country']:
+            new_feedback = form.save(commit=False)
+            new_feedback.item = item
+            new_feedback.save()
 
-            return HttpResponse(json.dumps({'success': True, 'message': 'Success'}), content_type="application/json")
-        else:
-            return HttpResponse(json.dumps({'success': False, 'errors': form.errors}), content_type="application/json")
-
+        return HttpResponse(json.dumps({'success': True, 'message': 'Success'}), content_type="application/json")
+    else:
+        return HttpResponse(json.dumps({'success': False, 'errors': form.errors}), content_type="application/json")
 
 def add(request):
     if request.method == 'POST':
