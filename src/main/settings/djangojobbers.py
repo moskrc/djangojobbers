@@ -14,8 +14,6 @@ ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'djangojobbers.ru']
 SERVER_EMAIL = DEFAULT_FROM_EMAIL = 'noreply@djangojobbers.ru'
 EMAIL_SUBJECT_PREFIX = '[djangojobbers.ru] '
 EMAIL_HOST = 'localhost'
-EMAIL_HOST_USER = 'noreply@djangojobbers.ru'
-EMAIL_HOST_PASSWORD = '1346795'
 DEFAULT_FROM_EMAIL='noreply@djangojobbers.ru'
 
 TEMPLATE_DIRS = (

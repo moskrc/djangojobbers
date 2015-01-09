@@ -15,7 +15,7 @@ env.repo = 'https://moskrc@bitbucket.org/moskrc/djangojobbers.ru'
 
 env.db_user = "moskrc_jobs"
 env.db_name = "moskrc_jobs"
-env.db_password = "1346795"
+env.db_password = "xxx"
 
 env.email_user = env.email_from = "noreply@%s" % env.sitename
 env.email_password = ""

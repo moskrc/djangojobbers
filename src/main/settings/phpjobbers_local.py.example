@@ -2,7 +2,25 @@ import os
 
 DEBUG=True
 
-SECRET_KEY = 'Xx2w1*2avipkt9asqv#_&ampRaxte-0#f0)j()i@jf!(zg8v#(!p(6e'
+EMAIL_HOST_USER = 'noreply@phpjobbers.ru'
+EMAIL_HOST_PASSWORD = '1346795'
+
+SECRET_KEY = ''
+
+COMPRESS_PRECOMPILERS = (
+       ('text/x-sass', 'pyscss {infile} > {outfile}'),
+)
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'moskrc_jobbers',
+        'USER': 'moskrc_jobbers',
+        'PASSWORD': '',
+        'HOST': 'localhost',
+        'PORT': '',
+    }
+}
 
 LOGGING = {
     'version': 1,
