@@ -5,6 +5,7 @@ from django.contrib.sites.models import Site
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect, HttpResponse, HttpResponseForbidden, HttpResponseNotAllowed
 from django.shortcuts import render, get_object_or_404
+from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_POST
 from catalog.forms import AddItemForm, ApplicationForm
 from catalog.models import Item
@@ -19,6 +20,7 @@ def view(request, item_id):
     item = get_object_or_404(Item.active_objects, pk=item_id)
     return render(request, 'catalog/view.html', {'item': item})
 
+@csrf_exempt
 @require_POST
 def feedback(request, item_id):
     item = get_object_or_404(Item.active_objects, pk=item_id)
