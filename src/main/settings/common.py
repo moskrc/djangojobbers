@@ -77,6 +77,7 @@ INSTALLED_APPS = (
     'markdown',
     'sorl.thumbnail',
     'compressor',
+    'nocaptcha_recaptcha',
     
     'common',
     'catalog',

@@ -9,6 +9,10 @@ try:
 except ImportError:
     DEBUG = True
 
+NORECAPTCHA_SITE_KEY = "6LcVVwwTAAAAAIZ2W-8rIAsrP34JX8NIkHNdKBZ8"
+NORECAPTCHA_SECRET_KEY = "6LcVVwwTAAAAAB6SvqetLmqwXOdRjN7K4Gc8PkDQ"
+
+
 ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'djangojobbers.ru']
 
 SERVER_EMAIL = DEFAULT_FROM_EMAIL = 'noreply@djangojobbers.ru'
