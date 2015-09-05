@@ -144,6 +144,9 @@ USE_TZ = True
 
 SITE_ID = None
 
+NORECAPTCHA_SITE_KEY = "6LcVVwwTAAAAAIZ2W-8rIAsrP34JX8NIkHNdKBZ8"
+NORECAPTCHA_SECRET_KEY = "6LcVVwwTAAAAAB6SvqetLmqwXOdRjN7K4Gc8PkDQ"
+
 ##################################################################################
 
 
